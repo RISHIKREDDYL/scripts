@@ -20,6 +20,11 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 echo -e "${YELLOW}1. Updating system...${NC}"
+
+export DEBIAN_FRONTEND=noninteractive
+-o Dpkg::Options::="--force-confdef"
+-o Dpkg::Options::="--force-confold"
+
 apt-get update -y
 apt-get upgrade -y
 echo -e "${GREEN}System updated.${NC}"
