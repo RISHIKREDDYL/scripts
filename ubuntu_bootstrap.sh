@@ -22,11 +22,9 @@ fi
 echo -e "${YELLOW}1. Updating system...${NC}"
 
 export DEBIAN_FRONTEND=noninteractive
--o Dpkg::Options::="--force-confdef"
--o Dpkg::Options::="--force-confold"
 
 apt-get update -y
-apt-get upgrade -y
+apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 echo -e "${GREEN}System updated.${NC}"
 
 echo -e "${YELLOW}2. Installing Python tools...${NC}"
