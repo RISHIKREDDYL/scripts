@@ -27,8 +27,8 @@ apt-get update -y
 apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 echo -e "${GREEN}System updated.${NC}"
 
-echo -e "${YELLOW}2. Installing Python tools...${NC}"
-apt-get install -y python3 python3-pip python3-venv
+echo -e "${YELLOW}2. Installing Python tools and Docker...${NC}"
+apt-get install -y python3 python3-pip python3-venv docker.io
 echo -e "${GREEN}Python installed.${NC}"
 
 echo -e "${YELLOW}3. Adding aliases to ~/.bashrc...${NC}"
