@@ -31,7 +31,11 @@ echo -e "${YELLOW}2. Installing Python tools and Docker...${NC}"
 apt-get install -y python3 python3-pip python3-venv docker.io
 echo -e "${GREEN}Python installed.${NC}"
 
-echo -e "${YELLOW}3. Adding aliases to ~/.bashrc...${NC}"
+echo -e "${YELLOW}3. Setting Timezone to Asia/Kolkata...${NC}"
+timedatectl set-timezone Asia/Kolkata
+echo -e "${GREEN}Timezone set to Asia/Kolkata.$(date)${NC}"
+
+echo -e "${YELLOW}4. Adding aliases to ~/.bashrc...${NC}"
 
 BASHRC="/etc/bash.bashrc"
 
