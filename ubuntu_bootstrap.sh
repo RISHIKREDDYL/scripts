@@ -33,7 +33,7 @@ echo -e "${GREEN}Python installed.${NC}"
 
 echo -e "${YELLOW}3. Adding aliases to ~/.bashrc...${NC}"
 
-BASHRC="$HOME/.bashrc"
+BASHRC="/etc/bash.bashrc"
 
 add_alias() {
   local alias_line="$1"
