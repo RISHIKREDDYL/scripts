@@ -8,8 +8,7 @@
 # Strict Mode:
 # -e: Exit immediately if a command exits with a non-zero status
 # -u: Treat unset variables as an error
-# -o pipefail: Return value of a pipeline is the status of the last command
-to exit with a non-zero status
+# -o pipefail: Return value of a pipeline is the status of the last command to exit with a non-zero status
 set -euo pipefail
 
 # ANSI Color Codes for output formatting
@@ -25,8 +24,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # FIX: Explicitly set HOME for cloud-init environments
-# Sudo contexts in some cloud providers may not preserve $HOME, breaking
-NVM/Pip installs
+# Sudo contexts in some cloud providers may not preserve $HOME, breaking NVM/Pip installs
 export HOME="/root"
 
 echo -e "${YELLOW}1. Updating system...${NC}"
@@ -35,35 +33,29 @@ echo -e "${YELLOW}1. Updating system...${NC}"
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get update -y
-# Upgrade packages; "--force-confdef" and "--force-confold" ensure existing
-config files
+# Upgrade packages; "--force-confdef" and "--force-confold" ensure existing config files 
 # are kept to prevent the script from hanging on config merge prompts
-apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o
-Dpkg::Options::="--force-confold"
+apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 apt-get install -y software-properties-common
 echo -e "${GREEN}System updated and PPA tools installed.${NC}"
 
 echo -e "${YELLOW}2. Installing Python 3.12 and Base Tools...${NC}"
 
-# Add Deadsnakes PPA to ensure Python 3.12 is available on older Ubuntu LTS
-versions
+# Add Deadsnakes PPA to ensure Python 3.12 is available on older Ubuntu LTS versions
 add-apt-repository -y ppa:deadsnakes/ppa
 apt-get update -y
 
-# Install Python 3.12, venv (virtual environments), dev headers (for
-compiling pip packages),
+# Install Python 3.12, venv (virtual environments), dev headers (for compiling pip packages),
 # Docker container runtime, Curl (data transfer), and Git (version control)
-apt-get install -y python3.12 python3.12-venv python3.12-dev python3-pip
-docker.io curl git
+apt-get install -y python3.12 python3.12-venv python3.12-dev python3-pip docker.io curl git
 
 echo -e "${GREEN}Base tools (Python 3.12) installed.${NC}"
 
 echo -e "${YELLOW}3. Installing and Configuring Fail2ban...${NC}"
 apt-get install -y fail2ban
 
-# Copy jail.conf to jail.local.
-# Modifications should be made in .local because .conf can be overwritten
-during package updates.
+# Copy jail.conf to jail.local. 
+# Modifications should be made in .local because .conf can be overwritten during package updates.
 if [ ! -f /etc/fail2ban/jail.local ]; then
     cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 fi
@@ -82,16 +74,13 @@ fi
 
 echo -e "${YELLOW}5. Installing Node.js via NVM...${NC}"
 
-# NVM requires HOME to be set (handled at script start) to determine
-install location
+# NVM requires HOME to be set (handled at script start) to determine install location
 export NVM_DIR="$HOME/.nvm"
 
 # Install NVM (Node Version Manager)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh |
-bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
-# Load NVM into the current shell session so we can use 'nvm' command
-immediately
+# Load NVM into the current shell session so we can use 'nvm' command immediately
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # Install and activate Node.js version 24
@@ -107,12 +96,10 @@ echo -e "${GREEN}Timezone set to Asia/Kolkata.$(date)${NC}"
 
 echo -e "${YELLOW}7. Adding aliases to /etc/bash.bashrc...${NC}"
 
-# Modifying /etc/bash.bashrc ensures aliases are available globally for all
-users
+# Modifying /etc/bash.bashrc ensures aliases are available globally for all users
 BASHRC="/etc/bash.bashrc"
 
-# Helper function to ensure idempotency (checks if line exists before
-adding)
+# Helper function to ensure idempotency (checks if line exists before adding)
 add_alias() {
   local alias_line="$1"
   # grep -qxF: Quiet, Exact match, Fixed string (no regex)
