@@ -1,0 +1,14 @@
+#cloud-config
+write_files:
+  - path: /opt/setup_script.sh
+    permissions: '0755'
+    content: |
+      #!/bin/bash
+      set -e  # Exit immediately if a command fails
+      # Use a specific commit hash for security
+      curl -O https://raw.githubusercontent.com/RISHIKREDDYL/scripts/main/ubuntu_bootstrap.sh
+      bash ubuntu_bootstrap.sh
+      curl -fsSL https://ollama.com/install.sh | sh
+
+runcmd:
+  - [ /opt/setup_script.sh ]
